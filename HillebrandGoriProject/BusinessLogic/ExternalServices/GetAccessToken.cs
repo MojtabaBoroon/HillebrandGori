@@ -9,8 +9,6 @@ namespace ShipmentApp.ExternalServices
 
         public async Task<string> GetAccessTokenAsync()
         {
-
-
             var content = new FormUrlEncodedContent(new Dictionary<string, string>
             {
                 {"grant_type", AccessTokenInfo.GrantType},
@@ -20,7 +18,6 @@ namespace ShipmentApp.ExternalServices
                 {"client_id", AccessTokenInfo.ClientId},
                 {"client_secret", AccessTokenInfo.ClientSecret}
             });
-
 
             var response = await _client.PostAsync(AccessTokenInfo.TokenServerUrl, content);
             var responseContent = await response.Content.ReadAsStringAsync();

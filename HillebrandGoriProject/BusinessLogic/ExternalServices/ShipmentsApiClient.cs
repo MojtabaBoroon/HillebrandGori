@@ -9,9 +9,10 @@ namespace ShipmentApp.ExternalServices
 {
     public class ShipmentsApiClient : IShipmentsApiClient
     {
-        private static readonly HttpClient _client = new HttpClient();
-
         private readonly IMapper _ShipmentMapper;
+
+        private static readonly HttpClient _client = new HttpClient();
+        string _shipmentsUrl = "https://api.hillebrandgori.com/v3/shipments";
 
         public ShipmentsApiClient(IMapper shipmentMapper)
         {
@@ -20,11 +21,9 @@ namespace ShipmentApp.ExternalServices
 
         public async Task<Shipment> GetShipmentsAsync(string accessToken)
         {
-            string shipmentsUrl = "https://api.hillebrandgori.com/v3/shipments";
-
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            var response = await _client.GetAsync(shipmentsUrl);
+            var response = await _client.GetAsync(_shipmentsUrl);
             var responseContent = await response.Content.ReadAsStringAsync();
 
             if (response.IsSuccessStatusCode)
@@ -47,9 +46,7 @@ namespace ShipmentApp.ExternalServices
 
         public async Task<Item> GetShipmentByIdAsync(int shipmentId, string accessToken)
         {
-            var shipmentUrl = $"https://api.hillebrandgori.com/v3/shipments/{shipmentId}";
-
-            using var request = new HttpRequestMessage(HttpMethod.Get, shipmentUrl);
+            var shipmentUrl = $"{_shipmentsUrl}/{shipmentId}";
 
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 

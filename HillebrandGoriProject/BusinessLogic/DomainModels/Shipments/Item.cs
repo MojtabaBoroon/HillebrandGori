@@ -1,12 +1,4 @@
-﻿using Newtonsoft.Json;
-using ShipmentApp.DataTransferring.Shipments;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ShipmentApp.DomainModels.Shipments
+﻿namespace ShipmentApp.DomainModels.Shipments
 {
     public class Item
     {
